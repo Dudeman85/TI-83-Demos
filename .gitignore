@@ -1,2 +1,4 @@
 *.rom
 out
+.idea
+cmake-build-debug
