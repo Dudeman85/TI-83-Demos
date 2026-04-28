@@ -1,3 +1,4 @@
+#include <cmath>
 #include <cstdint>
 #include <fstream>
 #include <vector>
@@ -9,9 +10,9 @@ int main()
 
     //Size of the actual variable
     uint16_t varSize = 768;
-    //Size of the data section +17 for var entry header, +2 for var header
+    //Size of the data section, +17 for var entry header, +2 for var header
     uint16_t dataSize = varSize + 17 + 2;
-    string varName = "TESTVAR";
+    string varName = "VID1";
     varName.resize(8, 0x0);
     string comment = "AppVar test comment!";
     comment.resize(42, 0x0);
@@ -51,7 +52,14 @@ int main()
     data.push_back(varSize >> 8);
     for (int i = 0; i < varSize; i++)
     {
-        data.push_back(0b10101010);
+        if ((i / 12) % 2 == 0)
+        {
+            data.push_back(0b10101010);
+        }
+        else
+        {
+            data.push_back(0b01010101);
+        }
     }
 
     //Make the checksum
